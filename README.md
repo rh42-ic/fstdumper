@@ -58,6 +58,24 @@ always #1 clk = ~clk;
 endmodule
 ```
 
+# Installation
+
+Prebuilt packages are published on the [releases page](https://github.com/semify-eda/fstdumper/releases) with every `v*` tag:
+
+```sh
+# Debian / Ubuntu
+sudo apt install ./fstdumper_<version>_amd64.deb
+
+# RHEL / Fedora / CentOS
+sudo dnf install ./fstdumper-<version>.x86_64.rpm
+```
+
+The VPI module is installed to `/usr/lib/fstdumper/fstdumper.so` (Debian/Ubuntu) or `/usr/lib64/fstdumper/fstdumper.so` (RHEL). When running your simulator, point it to this directory, e.g. for Icarus Verilog:
+
+```
+vvp -M /usr/lib/fstdumper -mfstdumper.so testbench.vvp
+```
+
 # Compiling
 
 Compiling the `fstdumper` shared library is as easy as issuing:

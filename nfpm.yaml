@@ -1,0 +1,43 @@
+name: fstdumper
+arch: amd64
+platform: linux
+version: ${VERSION}
+version_schema: semver
+release: 1
+section: electronics
+priority: optional
+maintainer: Leo Moser <leomoser99@gmail.com>
+description: Verilog VPI module to dump FST (Fast Signal Trace) databases.
+  Works with Icarus Verilog, Xcelium, Questa and VCS.
+vendor: semify-eda
+homepage: https://github.com/semify-eda/fstdumper
+license: GPL-3.0-or-later
+
+contents:
+  # VPI module (deb: multiarch lib dir, rpm/RHEL: lib64)
+  - src: fstdumper.so
+    dst: /usr/lib/fstdumper/fstdumper.so
+    packager: deb
+  - src: fstdumper.so.vpi
+    dst: /usr/lib/fstdumper/fstdumper.so.vpi
+    packager: deb
+  - src: fstdumper.so
+    dst: /usr/lib64/fstdumper/fstdumper.so
+    packager: rpm
+  - src: fstdumper.so.vpi
+    dst: /usr/lib64/fstdumper/fstdumper.so.vpi
+    packager: rpm
+  - src: LICENSE
+    dst: /usr/share/licenses/fstdumper/LICENSE
+    type: license
+  - src: README.md
+    dst: /usr/share/doc/fstdumper/README.md
+
+overrides:
+  deb:
+    depends:
+      - libc6
+      - zlib1g
+  rpm:
+    depends:
+      - zlib
