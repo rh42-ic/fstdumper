@@ -9,15 +9,14 @@ permissions:
   contents: write
 
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
+    container: almalinux:8
     steps:
       - uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y zlib1g-dev
+        run: dnf install -y gcc gcc-c++ make zlib-devel git curl
 
       - name: Build
         run: |
@@ -29,8 +28,7 @@ jobs:
           curl -fsSL -o /tmp/nfpm.tar.gz \
             https://github.com/goreleaser/nfpm/releases/download/v2.49.0/nfpm_2.49.0_Linux_x86_64.tar.gz
           tar -xzf /tmp/nfpm.tar.gz -C /tmp nfpm
-          sudo install -m 0755 /tmp/nfpm /usr/local/bin/nfpm
-          nfpm --version
+          install -m 0755 /tmp/nfpm /usr/local/bin/nfpm
 
       - name: Package deb and rpm
         env:
@@ -41,6 +39,20 @@ jobs:
           nfpm package -f nfpm.yaml -p rpm -t dist
           (cd dist && sha256sum * > checksums.txt)
           ls -la dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: dist/*
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: packages
+          path: dist
 
       - name: Create GitHub release
         env:

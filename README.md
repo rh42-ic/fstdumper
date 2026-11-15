@@ -70,7 +70,7 @@ sudo apt install ./fstdumper_<version>_amd64.deb
 sudo dnf install ./fstdumper-<version>.x86_64.rpm
 ```
 
-The VPI module is installed to `/usr/lib/fstdumper/fstdumper.so` (Debian/Ubuntu) or `/usr/lib64/fstdumper/fstdumper.so` (RHEL). When running your simulator, point it to this directory, e.g. for Icarus Verilog:
+The VPI module is installed to `/usr/lib/fstdumper/fstdumper.so` (Debian/Ubuntu) or `/usr/lib64/fstdumper/fstdumper.so` (RHEL). Packages declare their minimum system version in the package metadata (glibc >= 2.17, zlib >= 1.2.0): the library is built on AlmaLinux 8 and runs on RHEL/CentOS 7+, Ubuntu 18.04+ and Debian 9+. When running your simulator, point it to this directory, e.g. for Icarus Verilog:
 
 ```
 vvp -M /usr/lib/fstdumper -mfstdumper.so testbench.vvp

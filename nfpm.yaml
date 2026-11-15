@@ -36,8 +36,9 @@ contents:
 overrides:
   deb:
     depends:
-      - libc6
+      - libc6 (>= 2.17)
       - zlib1g
   rpm:
     depends:
-      - zlib
+      - glibc >= 2.17
+      - zlib >= 1.2.0

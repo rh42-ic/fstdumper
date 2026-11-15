@@ -20,7 +20,7 @@ $(OBJDIR):
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(OBJDIR)
 	@echo Compiling $(<F)
-	$(CC) -c -o $@ $< $(CFLAGS)
+	$(CC) -c -o $@ $< $(CFLAGS) -std=gnu11
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cc $(OBJDIR)
 	@echo Compiling $(<F)
